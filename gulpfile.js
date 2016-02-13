@@ -18,8 +18,8 @@ gulp.task('js', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(['./*.html'], ['html']);
-  gulp.watch(['./*.js'], ['js']);
+  gulp.watch(['*.html'], ['html']);
+  gulp.watch(['*.js'], ['js']);
 });
 
 gulp.task('default', ['connect', 'watch']);
