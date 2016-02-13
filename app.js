@@ -1,50 +1,29 @@
-// var simple = function(a, b) {
-//   return a + b;
-// };
-//
-// console.log(simple(23,23));
-
-var myObject = {
-  summa: function (a, b) {
-   console.log(this);
-   return a + b;
-  }
-};
-
-// console.log(myObject.summa(23,34));
-
-var myObj = (function() {
-
-  function privateMethod() {
-    console.log(this);
-    return "Private Method";
-  }
-  return {
-    summa: function(a, b) {
-      var that = this;
-      function helper(a, b) {
-        console.log(that);
-        that.multiply = a * b;
-      }
-
-      helper(a,b);
-
-      return a +b;
-    },
-    publicMethod: privateMethod
-  };
-
+// Shim for RequestAnimationFrame
+(function() {
+    var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+        window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+    window.requestAnimationFrame = requestAnimationFrame;
 })();
 
-// console.log(myObj.summa(23,23));
-// console.log(myObj.publicMethod());
-// console.log(myObj.multiply);
-var arr = [23,23];
-var summa = function(a, b) {
-  console.log(this.summa(a,b));
-  console.log(this.multiply);
-  return a + b;
-};
+var ele = document.querySelector('#animation');
+var ctx = ele.getContext('2d');
+var x = 10;
+var y = 10;
+var width = 150;
+var height = 150;
 
-var add = summa.apply(myObj, arr);
-console.log(add);
+function logic() {
+    x += 10;
+    if (x < ele.width - width) {
+        requestAnimationFrame(draw);
+    }
+}
+
+function draw() {
+    ctx.clearRect(0, 0, ele.width, ele.height);
+    ctx.fillStyle = "#dadada";
+    ctx.fillRect(x, y, 150, 150);
+}
+
+requestAnimationFrame(draw);
+setInterval(logic, 100 / 6);
